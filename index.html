@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>颀颀公主专属五月天演唱会</title>
+    <link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'ZCOOL KuaiLe', cursive;
+            background: url('static/background.jpg') no-repeat center center fixed;
+            background-size: cover;
+            height: 100vh;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* 容器布局 */
+        .content-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-bottom: 20px;
+        }
+
+        /* 欢迎文字样式 */
+        .welcome-text {
+            text-align: center;
+            font-size: 1.8rem;
+            color: #9e8064;
+            padding: 0 20px 5px; /* 减少下边距 */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            margin-bottom: 5px;
+        }
+
+        /* 歌名样式 */
+        .song-title {
+            text-align: center;
+            font-size: 1.2rem; /* 比欢迎文字小一点 */
+            color: #d7b184; /* 更浅的粉色 */
+            padding: 0 20px 15px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+            margin-bottom: 10px;
+            font-style: italic; /* 添加斜体效果 */
+        }
+
+        /* 原生播放器样式优化 */
+        audio {
+            width: 90%;
+            max-width: 350px;
+            margin: 0 auto;
+            display: block;
+        }
+
+        /* 美化iOS原生控制条 */
+        audio::-webkit-media-controls-enclosure {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            padding: 10px;
+            backdrop-filter: blur(5px);
+        }
+
+        audio::-webkit-media-controls-panel {
+            background: transparent;
+        }
+
+        audio::-webkit-media-controls-current-time-display,
+        audio::-webkit-media-controls-time-remaining-display {
+            color: white;
+            font-size: 0.8rem;
+        }
+
+        audio::-webkit-media-controls-play-button {
+            background-color: #9e8064;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+    <div class="content-container">
+        <div class="welcome-text">颀颀宝宝，来听歌呀~</div>
+        <div class="song-title">第二人生 · 五月天</div>
+        <audio id="music-player" controls loop>
+            <source src="static/第二人生.m4a" type="audio/mp4">
+            您的浏览器不支持音频元素。
+        </audio>
+    </div>
+
+    <script>
+        // 自动播放处理（iOS需要用户交互）
+        document.addEventListener('DOMContentLoaded', function() {
+            const player = document.getElementById('music-player');
+
+            // 尝试自动播放（静音模式）
+            player.muted = true;
+            const playPromise = player.play();
+
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    // 播放成功后再取消静音
+                    player.muted = false;
+                }).catch(error => {
+                    // 自动播放被阻止
+                    player.muted = false;
+                });
+            }
+        });
+    </script>
+</body>
+</html>
